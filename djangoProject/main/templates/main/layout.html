@@ -1,0 +1,42 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+</head>
+<body>
+    <header>BFDjango TODO</header>
+
+    <div class="main_div">
+        <button class="add_task_button">Add Task</button>
+        {% block header %} {% endblock %}
+
+        <table class="todos_table">
+            <tr>
+                {% for header in table.headers %}
+                    <td>{{ header }}</td>
+                {% endfor %}
+            </tr>
+
+            {% for row in table.rows %}
+                <tr>
+                    <td><span class="task_name">{{ row.Task }}</span></td>
+                    <td>{{ row.Created }}</td>
+                    <td>{{ row.DueOn }}</td>
+                    <td>{{ row.Owner }}</td>
+                    <td><button class="mark_button">{{ row.Mark }}</button></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+        <button class="toggle_todos_button">{% block toggle_todos %} {% endblock %}</button>
+        <button class="delete_list_button">Add Task</button>
+    </div>
+</body>
+</html>

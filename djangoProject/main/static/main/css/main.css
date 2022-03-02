@@ -1,0 +1,67 @@
+header {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 25px;
+}
+
+h1 {
+    border-top: 1px solid black;
+    padding-top: 30px;
+}
+
+td {
+    padding: 10px;
+    margin: 5px;
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border-top: 1px solid black;
+}
+
+button {
+    border: none;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+}
+
+.todos_table {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.add_task_button {
+    color: white;
+    background-color: #1212e5;
+    padding: 10px;
+}
+
+.main_div {
+    margin: 50px;
+}
+
+.task_name {
+    color: #3769cb;
+}
+
+.mark_button {
+    background-color: #24a2a2;
+    color: white;
+}
+
+.toggle_todos_button {
+    background-color: yellow;
+}
+
+.delete_list_button {
+    background-color: red;
+    color: white;
+}
