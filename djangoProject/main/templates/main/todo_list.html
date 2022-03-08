@@ -1,7 +1,11 @@
 {% extends 'main/layout.html' %}
 
 {% block header %}
-    <h1>Tasks in "List 1"</h1>
+    <h1>Tasks in "List {{ list_id }}"</h1>
 {% endblock %}
 
 {% block toggle_todos %}View complete tasks{% endblock %}
+
+{% block toggle_todos_button %}
+    window.location='/todos/{{ list_id }}/completed/'
+{% endblock %}

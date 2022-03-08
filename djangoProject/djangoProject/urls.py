@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('todos', main.views.todo_list),
-    path('todos/1/completed', main.views.completed_todo_list),
+    path('todos/<int:list_id>/', main.views.todo_list),
+    path('todos/<int:list_id>/completed/', main.views.completed_todo_list),
+    path('todos/<int:list_id>/<int:todo_id>/', main.views.todo_list_toggle_done),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
