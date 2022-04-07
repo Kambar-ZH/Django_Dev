@@ -4,6 +4,8 @@
     <h1>Completed tasks in "List {{ list_id }}"</h1>
 {% endblock %}
 
+{% block toggle_todos %}View incomplete tasks{% endblock %}
+
 {% block toggle_todos_button %}
     window.location='/todos/{{ list_id }}/'
 {% endblock %}

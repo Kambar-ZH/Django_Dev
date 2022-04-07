@@ -14,7 +14,7 @@
 
     <div class="main_div">
         <button class="add_task_button">Add Task</button>
-        {% block header %} {% endblock %}
+        <h1>Tasks in "List {{ list }}"</h1>
 
         <table class="todos_table">
             <tr>
@@ -33,7 +33,7 @@
                     <td>{{ todo.owner }}</td>
                         <td>
                             <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-                            <form action="//127.0.0.1:8000/todos/{{ list_id }}/{{ todo.id }}/" method="post" target="dummyframe">
+                            <form action="//127.0.0.1:8000/todos/{{ list_id }}/todo/{{ todo.id }}/" method="post" target="dummyframe">
                                 <input type="hidden" name="is_done" value="{{ todo.is_done }}" />
                                 <button class="mark_button">
                                     {% if todo.is_done %}Done{% endif %}
@@ -46,7 +46,7 @@
 
         </table>
 
-        <button class="toggle_todos_button" onclick="{% block toggle_todos_button %}{% endblock %}"> View incomplete tasks</button>
+        <button class="toggle_todos_button" onclick="{% block toggle_todos_button %}{% endblock %}">{% block toggle_todos %}{% endblock %}</button>
         <button class="delete_list_button">Delete Task</button>
     </div>
 </body>
