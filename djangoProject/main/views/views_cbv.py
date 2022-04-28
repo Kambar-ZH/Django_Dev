@@ -1,6 +1,7 @@
 import http
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 from ..models import Todo, List
 from ..serializers import TodoSerializer
@@ -18,7 +19,7 @@ class ListView(APIView):
 
 
 class CompletedListView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get(self, request, list_id):
         todos = Todo.objects.all().filter(list_id=list_id, is_done=True)
