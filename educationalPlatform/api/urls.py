@@ -11,7 +11,7 @@ from api.views.class_base_views.author import AuthorAPIView, AuthorListAPIView
 from api.views.class_base_views.course import CourseAPIView, CourseListAPIView
 from api.views.class_base_views.publisher import PublisherAPIView, PublisherListAPIView
 from api.views.function_based_views.course import course_list_by_category, course_list_by_publisher, \
-    course_list_most_rated
+    course_list_most_rated, course_list_seen_recently
 from api.views.function_based_views.topic import topic_list_by_course
 from api.views.function_based_views.step import step_list_by_topic
 
@@ -35,9 +35,10 @@ urlpatterns = [
     path('authors/', AuthorListAPIView.as_view()),
     path('courses/<int:pk>/', CourseAPIView.as_view()),
     path('courses/', CourseListAPIView.as_view()),
-    path('courses/by_publisher/<int:publisher_id>', course_list_by_publisher),
-    path('courses/by_category/<int:category>', course_list_by_category),
-    path('courses/most_rated', course_list_most_rated),
+    path('courses/by_publisher/<int:publisher_id>/', course_list_by_publisher),
+    path('courses/by_category/<int:category>/', course_list_by_category),
+    path('courses/most_rated/', course_list_most_rated),
+    path('courses/seen_recently/', course_list_seen_recently),
     path('topics/<int:pk>/', TopicAPIView.as_view()),
     path('topics/', TopicListAPIView.as_view()),
     path('topics/by_step/<int:step_id>', topic_list_by_course),
