@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Todo
+from main.models.todo import Todo
 
 
 class TodoSerializer(ModelSerializer):
