@@ -1,6 +1,5 @@
 import datetime
 
-import django.utils.timezone
 from django.db import models
 from api.models.author import Author
 from api.models.publisher import Publisher
@@ -13,12 +12,12 @@ class Course(models.Model):
     title = models.CharField(max_length=500, blank=False)
     description = models.TextField(blank=False)
     category = models.PositiveSmallIntegerField(choices=COURSE_CATEGORIES, default=ALGORITHMS)
-    created = models.DateField(editable=True, default=django.utils.timezone.now())
+    created = models.DateField(editable=True, default=datetime.date.today)
 
     authors = models.ManyToManyField(Author, blank=True)
     users = models.ManyToManyField(User, blank=True)
     likes = models.ManyToManyField(User, blank=True, related_name='liker_id')
-    publisher = models.OneToOneField(Publisher, blank=True, on_delete=models.PROTECT)
+    publisher = models.ForeignKey(Publisher, blank=True, on_delete=models.PROTECT)
 
     objects = models.Manager()
     publisher_related = CourseManager()

@@ -24,12 +24,12 @@ class AuthorAPIView(APIView):
 
     def put(self, request, pk):
         author = self.get_object(pk)
-        serializer = AuthorSerializer(data=request.data)
+        serializer = AuthorSerializer(instance=author, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
             logger.debug('put author {data}'.format(data=data))
-            return Response(serializer.errors, data)
+            return Response(data, http.HTTPStatus.ACCEPTED)
         logger.error('put author {errors}'.format(errors=serializer.errors))
         return Response(serializer.errors, http.HTTPStatus.BAD_REQUEST)
 

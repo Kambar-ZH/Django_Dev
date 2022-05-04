@@ -1,4 +1,5 @@
-import django.utils.timezone
+import datetime
+
 from django.db import models
 from api.models.author import Author
 from api.utils.upload import *
@@ -12,7 +13,7 @@ class Video(models.Model):
     document = models.FileField(upload_to=video_file_directory_path,
                                 validators=[validate_file_size, validate_file_extension],
                                 blank=True, null=True)
-    uploaded = models.DateField(editable=True, default=django.utils.timezone.now())
+    uploaded = models.DateField(editable=True, default=datetime.date.today)
     name = models.CharField(max_length=200, blank=False)
     views = models.IntegerField(default=0)
     authors = models.ManyToManyField(Author)

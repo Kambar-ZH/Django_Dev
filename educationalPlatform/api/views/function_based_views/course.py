@@ -7,11 +7,13 @@ from rest_framework.response import Response
 from django.db.models import Count
 from api.models.course import Course
 from api.serializers.course import CourseSerializer
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
 authentication_classes = (TokenAuthentication,)
 permission_classes = (IsAuthenticated,)
+
 
 @api_view(['GET'])
 def course_list_by_publisher(request, publisher_id):
@@ -42,12 +44,10 @@ def course_list_most_rated(request):
         logger.debug('get top rated courses', data)
         return Response(data)
 
-@api_view(['GET'])
-def course_list_seen_recently(request):
-    if request.method == 'GET':
-        print(request.user)
-        courses = Course.objects.all().annotate(num_user=Count('likes')).order_by('-num_user')[:10]
-        serializer = CourseSerializer(courses, many=True)
-        data = serializer.data
-        logger.debug('get top rated courses', data)
-        return Response(data)
+
+@api_view(['POST'])
+def course_subscribe(request, pk):
+    if request.method == 'POST':
+        course = Course.objects.get(pk=pk)
+        user = User.objects.get(username=request.user)
+        course.users.add(user)

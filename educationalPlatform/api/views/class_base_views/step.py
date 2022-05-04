@@ -3,7 +3,7 @@ import logging
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from api.models.step import Step
-from api.serializers.step import StepSerializer
+from api.serializers.step import StepSerializer, StepDetailSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -17,19 +17,19 @@ class StepAPIView(APIView):
 
     def get(self, request, pk):
         step = self.get_object(pk)
-        serializer = StepSerializer(step)
+        serializer = StepDetailSerializer(step)
         data = serializer.data
         logger.debug('get step', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         step = self.get_object(pk)
-        serializer = StepSerializer(data=request.data)
+        serializer = StepSerializer(instance=step, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
             logger.debug('put step {data}'.format(data=data))
-            return Response(serializer.errors, data)
+            return Response(data, http.HTTPStatus.ACCEPTED)
         logger.error('put step {errors}'.format(errors=serializer.errors))
         return Response(serializer.errors, http.HTTPStatus.BAD_REQUEST)
 

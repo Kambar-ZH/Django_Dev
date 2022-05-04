@@ -3,7 +3,7 @@ import logging
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from api.models.topic import Topic
-from api.serializers.topic import TopicSerializer
+from api.serializers.topic import TopicSerializer, TopicGridSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +24,12 @@ class TopicAPIView(APIView):
 
     def put(self, request, pk):
         topic = self.get_object(pk)
-        serializer = TopicSerializer(data=request.data)
+        serializer = TopicSerializer(instance=topic, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
             logger.debug('put topic {data}'.format(data=data))
-            return Response(serializer.errors, data)
+            return Response(data, http.HTTPStatus.ACCEPTED)
         logger.error('put topic {errors}'.format(errors=serializer.errors))
         return Response(serializer.errors, http.HTTPStatus.BAD_REQUEST)
 
@@ -37,7 +37,7 @@ class TopicAPIView(APIView):
 class TopicListAPIView(APIView):
     def get(self, request):
         topics = Topic.objects.all()
-        serializer = TopicSerializer(topics, many=True)
+        serializer = TopicGridSerializer(topics, many=True)
         data = serializer.data
         logger.debug('get topic list {data}'.format(data=data))
         return Response(data)

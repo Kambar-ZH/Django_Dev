@@ -24,12 +24,12 @@ class PublisherAPIView(APIView):
 
     def put(self, request, pk):
         publisher = self.get_object(pk)
-        serializer = PublisherSerializer(data=request.data)
+        serializer = PublisherSerializer(instance=publisher, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
             logger.debug('put publisher {data}'.format(data=data))
-            return Response(serializer.errors, data)
+            return Response(data, http.HTTPStatus.ACCEPTED)
         logger.error('put publisher {errors}'.format(errors=serializer.errors))
         return Response(serializer.errors, http.HTTPStatus.BAD_REQUEST)
 

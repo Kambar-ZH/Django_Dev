@@ -24,12 +24,12 @@ class VideoAPIView(APIView):
 
     def put(self, request, pk):
         video = self.get_object(pk)
-        serializer = VideoSerializer(data=request.data)
+        serializer = VideoSerializer(instance=video, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
             logger.debug('put video {data}'.format(data=data))
-            return Response(serializer.errors, data)
+            return Response(data, http.HTTPStatus.ACCEPTED)
         logger.error('put video {errors}'.format(errors=serializer.errors))
         return Response(serializer.errors, http.HTTPStatus.BAD_REQUEST)
 
