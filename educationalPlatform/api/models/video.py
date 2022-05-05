@@ -7,7 +7,7 @@ from api.utils.validators import *
 
 
 class Video(models.Model):
-    preview = models.ImageField(upload_to=video_image_directory_path,
+    preview = models.ImageField(upload_to=image_directory_path,
                                 validators=[validate_image_size, validate_image_extension],
                                 blank=True, null=True)
     document = models.FileField(upload_to=video_file_directory_path,

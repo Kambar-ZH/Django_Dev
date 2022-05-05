@@ -159,11 +159,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'core': {
-            'handlers': ['file_handler', 'console_handler'],
-            'level': 'DEBUG',
-        },
-        'books': {
+        'main': {
             'handlers': ['file_handler', 'console_handler'],
             'level': 'DEBUG',
         },

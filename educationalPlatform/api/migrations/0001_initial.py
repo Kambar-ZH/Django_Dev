@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             name='Video',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('preview', models.ImageField(blank=True, null=True, upload_to=api.utils.upload.video_image_directory_path, validators=[api.utils.validators.validate_image_size, api.utils.validators.validate_image_extension])),
+                ('preview', models.ImageField(blank=True, null=True, upload_to=api.utils.upload.image_directory_path, validators=[api.utils.validators.validate_image_size, api.utils.validators.validate_image_extension])),
                 ('document', models.FileField(blank=True, null=True, upload_to=api.utils.upload.video_file_directory_path, validators=[api.utils.validators.validate_file_size, api.utils.validators.validate_file_extension])),
                 ('uploaded', models.DateField(default=datetime.datetime(2022, 4, 28, 18, 12, 43, 526475, tzinfo=utc))),
                 ('name', models.CharField(max_length=200)),

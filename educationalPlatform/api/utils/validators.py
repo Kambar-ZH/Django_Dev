@@ -1,7 +1,7 @@
 import os
 from django.core.exceptions import ValidationError
 
-from .constants import DOCUMENT_TEMPLATE_FILE_ALLOWED_EXTENSIONS, DOCUMENT_TEMPLATE_MAX_FILE_SIZE, \
+from api.utils.constants import DOCUMENT_TEMPLATE_FILE_ALLOWED_EXTENSIONS, DOCUMENT_TEMPLATE_MAX_FILE_SIZE, \
     IMAGE_MAX_FILE_SIZE, IMAGE_ALLOWED_EXTENSIONS
 
 
