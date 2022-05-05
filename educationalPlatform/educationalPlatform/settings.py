@@ -147,7 +147,7 @@ LOGGING = {
     },
     'handlers': {
         'file_handler': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'test.log',
             'formatter': 'verbose'
