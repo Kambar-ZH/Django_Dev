@@ -1,7 +1,6 @@
 import http
 
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.permissions import AllowAny
 
 from main.models.todo import Todo
 from main.serializers.todo import TodoSerializer
