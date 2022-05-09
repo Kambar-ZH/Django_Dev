@@ -17,14 +17,14 @@ class AuthorAPIView(APIView):
 
     def get(self, request, pk):
         author = self.get_object(pk)
-        serializer = AuthorSerializer(author)
+        serializer = AuthorSerializer(instance=author, context={'request': request})
         data = serializer.data
         logger.debug('get author', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         author = self.get_object(pk)
-        serializer = AuthorSerializer(instance=author, data=request.data, partial=True)
+        serializer = AuthorSerializer(instance=author, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class AuthorAPIView(APIView):
 class AuthorListAPIView(APIView):
     def get(self, request):
         authors = Author.objects.all()
-        serializer = AuthorSerializer(authors, many=True)
+        serializer = AuthorSerializer(instance=authors, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get author list {data}'.format(data=data))
         return Response(data)
 
     def post(self, request):
-        serializer = AuthorSerializer(data=request.data)
+        serializer = AuthorSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

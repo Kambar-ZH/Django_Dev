@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def step_list_by_topic(request, topic_id):
     if request.method == 'GET':
         steps = Step.topic_related.get_by_topic_without_relation(topic_id=topic_id)
-        serializer = StepSerializer(steps, many=True)
+        serializer = StepSerializer(instance=steps, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get steps', data)
         return Response(data)

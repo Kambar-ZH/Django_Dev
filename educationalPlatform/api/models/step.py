@@ -15,6 +15,7 @@ class Step(models.Model):
     class Meta:
         verbose_name = 'Шаг'
         verbose_name_plural = 'Шаги'
+        ordering = ('id',)
 
     def __str__(self):
         return f'{self.id}: {self.description}'

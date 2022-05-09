@@ -17,14 +17,14 @@ class CourseAPIView(APIView):
 
     def get(self, request, pk):
         course = self.get_object(pk)
-        serializer = CourseSerializer(course)
+        serializer = CourseSerializer(instance=course, context={'request': request})
         data = serializer.data
         logger.debug('get course', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         course = self.get_object(pk)
-        serializer = CourseSerializer(instance=course, data=request.data, partial=True)
+        serializer = CourseSerializer(instance=course, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class CourseAPIView(APIView):
 class CourseListAPIView(APIView):
     def get(self, request):
         courses = Course.objects.all()
-        serializer = CourseGridSerializer(courses, many=True)
+        serializer = CourseGridSerializer(instance=courses, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get course list {data}'.format(data=data))
         return Response(data=data)
 
     def post(self, request):
-        serializer = CourseSerializer(data=request.data)
+        serializer = CourseSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

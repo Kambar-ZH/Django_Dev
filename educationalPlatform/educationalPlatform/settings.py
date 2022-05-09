@@ -159,7 +159,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'main': {
+        'api': {
             'handlers': ['file_handler', 'console_handler'],
             'level': 'DEBUG',
         },

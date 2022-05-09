@@ -17,14 +17,14 @@ class TopicAPIView(APIView):
 
     def get(self, request, pk):
         topic = self.get_object(pk)
-        serializer = TopicSerializer(topic)
+        serializer = TopicSerializer(instance=topic, context={'request': request})
         data = serializer.data
         logger.debug('get topic', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         topic = self.get_object(pk)
-        serializer = TopicSerializer(instance=topic, data=request.data, partial=True)
+        serializer = TopicSerializer(instance=topic, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class TopicAPIView(APIView):
 class TopicListAPIView(APIView):
     def get(self, request):
         topics = Topic.objects.all()
-        serializer = TopicGridSerializer(topics, many=True)
+        serializer = TopicGridSerializer(instance=topics, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get topic list {data}'.format(data=data))
         return Response(data)
 
     def post(self, request):
-        serializer = TopicSerializer(data=request.data)
+        serializer = TopicSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

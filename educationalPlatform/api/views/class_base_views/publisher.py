@@ -17,14 +17,14 @@ class PublisherAPIView(APIView):
 
     def get(self, request, pk):
         publisher = self.get_object(pk)
-        serializer = PublisherSerializer(publisher)
+        serializer = PublisherSerializer(instance=publisher, context={'request': request})
         data = serializer.data
         logger.debug('get publisher', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         publisher = self.get_object(pk)
-        serializer = PublisherSerializer(instance=publisher, data=request.data, partial=True)
+        serializer = PublisherSerializer(instance=publisher, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class PublisherAPIView(APIView):
 class PublisherListAPIView(APIView):
     def get(self, request):
         publishers = Publisher.objects.all()
-        serializer = PublisherSerializer(publishers, many=True)
+        serializer = PublisherSerializer(instance=publishers, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get publisher list {data}'.format(data=data))
         return Response(data)
 
     def post(self, request):
-        serializer = PublisherSerializer(data=request.data)
+        serializer = PublisherSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

@@ -17,14 +17,14 @@ class VideoAPIView(APIView):
 
     def get(self, request, pk):
         video = self.get_object(pk)
-        serializer = VideoSerializer(video)
+        serializer = VideoSerializer(instance=video, context={'request': request})
         data = serializer.data
         logger.debug('get video', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         video = self.get_object(pk)
-        serializer = VideoSerializer(instance=video, data=request.data, partial=True)
+        serializer = VideoSerializer(instance=video, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class VideoAPIView(APIView):
 class VideoListAPIView(APIView):
     def get(self, request):
         videos = Video.objects.all()
-        serializer = VideoSerializer(videos, many=True)
+        serializer = VideoSerializer(instance=videos, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get video list {data}'.format(data=data))
         return Response(data)
 
     def post(self, request):
-        serializer = VideoSerializer(data=request.data)
+        serializer = VideoSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

@@ -34,4 +34,4 @@ class PublisherAdmin(admin.ModelAdmin):
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'views']
+    list_display = ['id', 'title', 'views']

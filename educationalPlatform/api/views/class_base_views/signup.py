@@ -6,8 +6,11 @@ from rest_framework.response import Response
 from django.contrib.auth import login
 from api.models.registration_form import NewUserForm
 
+from rest_framework.permissions import AllowAny
+
 
 class SignupView(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request):
         form_data = json.loads(request.body.decode())

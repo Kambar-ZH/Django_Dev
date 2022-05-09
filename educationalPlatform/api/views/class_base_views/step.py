@@ -17,14 +17,14 @@ class StepAPIView(APIView):
 
     def get(self, request, pk):
         step = self.get_object(pk)
-        serializer = StepDetailSerializer(step)
+        serializer = StepDetailSerializer(instance=step, context={'request': request})
         data = serializer.data
         logger.debug('get step', data)
         return Response(data, http.HTTPStatus.ACCEPTED)
 
     def put(self, request, pk):
         step = self.get_object(pk)
-        serializer = StepSerializer(instance=step, data=request.data, partial=True)
+        serializer = StepSerializer(instance=step, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
@@ -37,13 +37,13 @@ class StepAPIView(APIView):
 class StepListAPIView(APIView):
     def get(self, request):
         steps = Step.objects.all()
-        serializer = StepSerializer(steps, many=True)
+        serializer = StepSerializer(instance=steps, many=True, context={'request': request})
         data = serializer.data
         logger.debug('get step list {data}'.format(data=data))
         return Response(data)
 
     def post(self, request):
-        serializer = StepSerializer(data=request.data)
+        serializer = StepSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             data = serializer.data

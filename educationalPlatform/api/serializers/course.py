@@ -3,12 +3,18 @@ from api.models.course import Course
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
+
     class Meta:
         model = Course
         fields = '__all__'
 
+    def get_category(self, obj):
+        return obj.get_category_display()
+
 
 class CourseGridSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
     publisher_name = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
     subscribers_count = serializers.SerializerMethodField()
@@ -25,3 +31,6 @@ class CourseGridSerializer(serializers.ModelSerializer):
 
     def get_subscribers_count(self, obj):
         return obj.users.count()
+
+    def get_category(self, obj):
+        return obj.get_category_display()
