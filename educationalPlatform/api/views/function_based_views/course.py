@@ -52,6 +52,7 @@ def course_subscribe(request, pk):
         course = Course.objects.get(pk=pk)
         user = User.objects.get(username=request.user)
         course.users.add(user)
+        logger.debug('post subscribe to course')
         return Response(status=http.HTTPStatus.CREATED)
 
 
@@ -61,5 +62,6 @@ def course_like(request, pk):
         course = Course.objects.get(pk=pk)
         user = User.objects.get(username=request.user)
         course.likes.add(user)
+        logger.debug('post like the course')
         return Response(status=http.HTTPStatus.CREATED)
 

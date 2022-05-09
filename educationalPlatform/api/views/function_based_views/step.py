@@ -14,5 +14,5 @@ def step_list_by_topic(request, topic_id):
         steps = Step.topic_related.get_by_topic_without_relation(topic_id=topic_id)
         serializer = StepSerializer(instance=steps, many=True, context={'request': request})
         data = serializer.data
-        logger.debug('get steps', data)
+        logger.debug('get steps by topic', data)
         return Response(data)

@@ -14,5 +14,5 @@ def topic_list_by_course(request, course_id):
         topics = Topic.course_related.get_by_course_without_relation(course_id=course_id)
         serializer = TopicGridSerializer(instance=topics, many=True, context={'request': request})
         data = serializer.data
-        logger.debug('get topics', data)
+        logger.debug('get topics by course', data)
         return Response(data)
